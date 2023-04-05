@@ -4,7 +4,7 @@
 // @match       *://*/wp-admin/update-core.php
 // @match       *://*/wp-admin/network/update-core.php
 // @grant       none
-// @version     1.0.1
+// @version     1.1.0
 // @license     MIT
 // @author      Danny Hale
 // @namespace   https://github.com/DannyHaleLR
@@ -13,11 +13,17 @@
 // @supportURL  https://github.com/DannyHaleLR/userscripts/issues
 // ==/UserScript==
 
-
-//test update
 const updatePluginsBtn = document.getElementsByName("upgrade-plugins")[0].getElementsByTagName('p')[0];
 
-var copy = [];
+var wordpressVersion = document.getElementsByClassName("wp-current-version")[0].innerHTML;
+
+wordpressVersion = wordpressVersion.replace('Current version: ', '');
+
+const updateWordpressBtn = document.getElementById("upgrade");
+
+updateWordpressBtn.addEventListener("click", function() {
+  setCookie('WPUpgraded', wordpressVersion, 1)
+});
 
 updatePluginsBtn.insertAdjacentHTML('beforeend', '<button id="copy-versions" type="button" style="margin-left:20px;" class="button">Copy version numbers</button>');
 
@@ -26,6 +32,15 @@ const copyButton = document.getElementById("copy-versions");
 copyButton.addEventListener("click", copyVersionNumbers);
 
 function copyVersionNumbers() {
+
+  var copy = [];
+
+  if (getCookie('WPUpgraded')) {
+    copy.push("🟢 <b>Wordpress Core</b>: Previous version " + getCookie('WPUpgraded') + " → Updated to " + wordpressVersion + ".");
+  } else {
+    copy.push("🟢 <b>Wordpress Core</b>: Latest Version (" + wordpressVersion + ").");
+  }
+
   const table = document.getElementsByClassName("plugins")[0];
   for (var i = 0, row; row = table.rows[i]; i++) {
 
@@ -46,59 +61,54 @@ function copyVersionNumbers() {
 
     var updateVersion = text_to_get;
 
-    copy.push("🟢 " + pluginName + ": Previous version " + installedVersion + " → Updated to " + updateVersion + ".")
+    copy.push("🟢 <b>" + pluginName + "</b>: Previous version " + installedVersion + " <b>→</b> Updated to " + updateVersion + ".")
 
   }
 
-  copy = copy.join("\r\n");
+  copy = copy.join("<br>");
 
-  copyTextToClipboard(copy);
+  copyToClip(copy);
 }
 
+//FUNCTIONS
 
-function fallbackCopyTextToClipboard(text) {
-  var textArea = document.createElement("textarea");
-  textArea.value = text;
+function copyToClip(str) {
 
-  // Avoid scrolling to bottom
-  textArea.style.top = "0";
-  textArea.style.left = "0";
-  textArea.style.position = "fixed";
-
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
-
-  try {
-    var successful = document.execCommand('copy');
-
-    console.log(successful);
-    if (successful) {
-      copyButton.innerHTML = 'Copied to clipboard!';
-      setTimeout(function() {
-        copyButton.innerHTML = 'Copy version numbers';
-      }, 1000);
-    }
-    var msg = successful ? 'successful' : 'unsuccessful';
-    console.log('Fallback: Copying text command was ' + msg);
-  } catch (err) {
-    console.error('Fallback: Oops, unable to copy', err);
+  function listener(e) {
+    e.clipboardData.setData("text/html", str);
+    e.clipboardData.setData("text/plain", str);
+    e.preventDefault();
   }
 
-  document.body.removeChild(textArea);
-}
-function copyTextToClipboard(text) {
-  if (!navigator.clipboard) {
-    fallbackCopyTextToClipboard(text);
-    return;
-  }
-  navigator.clipboard.writeText(text).then(function() {
+  document.addEventListener("copy", listener);
+  var successful = document.execCommand('copy');
+
+  if (successful) {
     copyButton.innerHTML = 'Copied to clipboard!';
     setTimeout(function() {
       copyButton.innerHTML = 'Copy version numbers';
     }, 1000);
-    console.log('Async: Copying to clipboard was successful!');
-  }, function(err) {
-    console.error('Async: Could not copy text: ', err);
-  });
+  }
+
+  copyButton.innerHTML = 'Copied to clipboard!';
+};
+
+function setCookie(name,value,days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
 }
