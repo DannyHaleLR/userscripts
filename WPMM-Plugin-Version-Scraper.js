@@ -4,7 +4,7 @@
 // @match       *://*/wp-admin/update-core.php
 // @match       *://*/wp-admin/network/update-core.php
 // @grant       none
-// @version     1.0
+// @version     1.0.1
 // @license     MIT
 // @author      Danny Hale
 // @namespace   https://github.com/DannyHaleLR
