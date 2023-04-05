@@ -10,8 +10,8 @@
 // @namespace   https://github.com/DannyHaleLR
 // @include     https://github.com/
 // @icon        https://github.githubassets.com/pinned-octocat.svg
-// @updateURL   https://raw.githubusercontent.com/DannyHaleLR/userscripts/master/WPMM-Plugin-Version-Scraper.js
-// @downloadURL https://raw.githubusercontent.com/DannyHaleLR/userscripts/master/WPMM-Plugin-Version-Scraper.js
+// @updateURL   https://raw.githubusercontent.com/DannyHaleLR/userscripts/main/WPMM-Plugin-Version-Scraper.js
+// @downloadURL https://raw.githubusercontent.com/DannyHaleLR/userscripts/main/WPMM-Plugin-Version-Scraper.js
 // @supportURL  https://github.com/DannyHaleLR/userscripts/issues
 // ==/UserScript==
 
