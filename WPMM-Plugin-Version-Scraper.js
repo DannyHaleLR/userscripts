@@ -1,7 +1,6 @@
 // ==UserScript==
 // @name        Copy Wordpress Plugin Update Versions
-// @description A userscript that hides your own repo metadata in the GitHub feed
-// @namespace   Violentmonkey Scripts
+// @description A userscript that adds a button to the Wordpress update page that copies the plugin versions to the clipboard.
 // @match       *://*/wp-admin/update-core.php
 // @match       *://*/wp-admin/network/update-core.php
 // @grant       none
