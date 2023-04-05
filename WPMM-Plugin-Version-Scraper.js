@@ -8,13 +8,13 @@
 // @license     MIT
 // @author      Danny Hale
 // @namespace   https://github.com/DannyHaleLR
-// @include     https://github.com/
-// @icon        https://github.githubassets.com/pinned-octocat.svg
 // @updateURL   https://raw.githubusercontent.com/DannyHaleLR/userscripts/main/WPMM-Plugin-Version-Scraper.js
 // @downloadURL https://raw.githubusercontent.com/DannyHaleLR/userscripts/main/WPMM-Plugin-Version-Scraper.js
 // @supportURL  https://github.com/DannyHaleLR/userscripts/issues
 // ==/UserScript==
 
+
+//test update
 const updatePluginsBtn = document.getElementsByName("upgrade-plugins")[0].getElementsByTagName('p')[0];
 
 var copy = [];
