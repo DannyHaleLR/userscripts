@@ -5,9 +5,11 @@
 // @match       *://*/wp-admin/network/update-core.php
 // @grant       none
 // @version     1.0
+// @license     MIT
 // @author      Danny Hale
 // @namespace   https://github.com/DannyHaleLR
 // @include     https://github.com/
+// @icon        https://github.githubassets.com/pinned-octocat.svg
 // @updateURL   https://raw.githubusercontent.com/DannyHaleLR/userscripts/master/WPMM-Plugin-Version-Scraper.js
 // @downloadURL https://raw.githubusercontent.com/DannyHaleLR/userscripts/master/WPMM-Plugin-Version-Scraper.js
 // @supportURL  https://github.com/DannyHaleLR/userscripts/issues
